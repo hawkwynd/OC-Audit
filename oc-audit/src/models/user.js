@@ -19,7 +19,11 @@ const UserSchema = new Schema(
 			type: String,
 			required: true,
 			bcrypt: true
-	}
+		},
+		last_login_date: {
+			type: Date,
+			default: Date.now
+		}
 	},{ timestamps: true});
 
 UserSchema.statics.createUser = function(newUser, callback){
