@@ -1,0 +1,15 @@
+<div class="container formContainer">
+  <h1 class="h3 mb-3 font-weight-normal">Welcome to OC-Audit Portal</h1>
+  <h4>Login with your access code for your audits! </h4>
+  {{# if error }}
+          <p class="red-text ">{{ error }}</p>        
+  {{/if}}
+  <form class="form-signin" method="post" action="login" >
+      <div class="input-field col s6">
+        <label for="customerId" class="sr-only">Customer Id</label>
+        <input type="text" name="customerId" id="customerId" class="form-control" placeholder="customerId"  autofocus required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block oc-btn">Login</button>
+    </form>
+</div>

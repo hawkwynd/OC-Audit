@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="section">
+
+        <!--   Icon Section   -->
+            <table class="stripped">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Number of Links</td>
+                        <td>Access Code</td>
+                        <td>View</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{# each customers }}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.sitemap.length}}</td>
+                        <td>{{this.code}}</td>
+                        <td><a href="/audits?cu={{this.id}}"> <i class="material-icons">remove_red_eye</i></a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+    </div>
+</div>
