@@ -1,5 +1,6 @@
 /* jshint esversion: 6*/
 const User =  require('mongoose').model('User');
+const moment = require('moment');
 
 module.exports = {
     renderLogin: (req, res) => {
@@ -53,13 +54,14 @@ module.exports = {
         // const {email, password } = req.body;
 
             if(!req.user) {
-              console.log(req.message);
                 req.session.user = null;
                 req.session.success = false;
                 res.redirect('/admin/login');
             } else {
                 // No errors
-                req.session.user = req.user;
+                const user = Object.assign({}, req.user._doc);
+                user.login_date = moment(req.last_login_date).format("YYYY-MM-DD");
+                req.session.user = user;
                 res.redirect('/');
             }
     },

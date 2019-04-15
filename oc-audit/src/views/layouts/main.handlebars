@@ -8,7 +8,7 @@
 
     <!-- Compiled and minified Styledsheet -->
 <link href="/css/main.css" type="text/css" rel="stylesheet" media="screen,projection" >
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/af.js"></script>
 <head>
     <meta charset="utf-8">
     <title>OC-Audit</title>
@@ -18,13 +18,14 @@
     <ul id="dropdown1" class="dropdown-content">
       
       <li class="divider"></li>
-      <li><a href="#!">test</a></li>
+      <li><a href="#!" class="disabled">{{user.login_date}}</a></li>
     </ul>
     <nav>
       <div class="nav-wrapper">
         <h3><a href="/" class="">OC AUDIT</a></h3>
         <ul class="right hide-on-med-and-down">
           {{#if user}}
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{{user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
           <li><a href="/audits">Audits</a></li>
           {{/if}}
           {{#if visitor}}
