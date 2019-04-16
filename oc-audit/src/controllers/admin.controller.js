@@ -62,6 +62,7 @@ module.exports = {
                 const user = Object.assign({}, req.user._doc);
                 user.login_date = moment(req.last_login_date).format("YYYY-MM-DD");
                 req.session.user = user;
+                req.session.visitor = null;
                 res.redirect('/');
             }
     },
