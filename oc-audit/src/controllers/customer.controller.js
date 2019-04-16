@@ -33,11 +33,12 @@ module.exports = {
     },
 
     registerCustomer: (req, res) => {
-        const {name, url } = req.body;
+        const {name, url, email } = req.body;
 
             req.checkBody('name', 'Name is required').notEmpty();
             req.checkBody('url', 'Url is required').notEmpty();
             req.checkBody('url', 'Url Should be www.url.com ').matches(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+            req.checkBody('email', 'Email is required').notEmpty();
 
             var errors = req.validationErrors();
 
@@ -51,7 +52,8 @@ module.exports = {
 
                 let newCustomer = {
                     name: name.toUpperCase(),
-                    url: url.toLowerCase()
+                    url: url.toLowerCase(),
+                    email: email.toLowerCase()
                 };
 
                 // get sitemap

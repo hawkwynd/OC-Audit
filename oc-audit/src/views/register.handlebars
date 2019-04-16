@@ -12,8 +12,12 @@
             {{/if}}
             <form method="post" action="/register-customer" >
                 <div class="form-group">
-                    <label for="name">Credit union Name</label>
+                    <label for="name">Credit Union Name</label>
                     <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter CU name" >
+                </div>
+                <div class="form-group">
+                    <label for="email">Credit Contact Email</label>
+                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="ie: contact@example.com" >
                 </div>
                 <div class="form-group">
                     <label for="url">Credit Union Url</label>

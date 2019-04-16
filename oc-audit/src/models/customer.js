@@ -15,6 +15,10 @@ const shortid = require('shortid');
         default: shortid.generate,
         unique: true
     },
+    email: {
+      type: String,
+      required: true
+    },
     sitemap: [
         {
             loc: String,
