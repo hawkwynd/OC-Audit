@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const parseXml = require('xml2js').parseString;
 const keys = require('./config');
+const mailer = require('./mailService');
 
 // Library for difference between 2 html
 const htmldiff = require('./htmlDiff');
@@ -88,7 +89,7 @@ const run = async (customers) => {
 							console.log(error);
 						} else {
 							console.log(`${model.url} updated!`);
-							
+							// send mail
 						}
 					});
 			}
@@ -99,6 +100,11 @@ const run = async (customers) => {
 const runner = () => {
 	// find all customers and Run Audit
 	console.log('Running Audit *************************************');
+	const mail_html = `
+      <h2 style="color:purple;">Audit Service is running</h2>
+      <p>time: ${new Date()}</p>
+	`;
+	mailer('oumar@omnicommander.com', 'Audit running', mail_html);
 	// Connecting mogo DB
 	let mongodbUri = `mongodb://${keys.db.username}:${keys.db.password}@ds161074.mlab.com:61074/audit-dev`;
 	mongoose.connect(mongodbUri, {useNewUrlParser: true})
