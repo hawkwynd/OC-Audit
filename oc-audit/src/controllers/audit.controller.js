@@ -49,7 +49,7 @@ module.exports = {
         Audit.findById(req.params.id).then((result) => {
             const newData = require('../helpers/fixhtml1')(result);
             const diff = require('../helpers/diff2html')(newData);
-            res.render('devAudit', {code: diff, user: req.session.user, visitor: req.session.visitor});
+            res.render('devAudit', {audit: result, code: diff, user: req.session.user, visitor: req.session.visitor});
         });
     },
 
