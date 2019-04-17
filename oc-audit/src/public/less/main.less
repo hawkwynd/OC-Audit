@@ -15,8 +15,12 @@ body {
   font-family: "Lato";
 }
 
-container {
+.container {
   max-width: 2000px;
+}
+
+.login_name {
+  text-transform: uppercase;
 }
 
 @media only screen and (min-width: 993px){
@@ -114,18 +118,52 @@ section#main {
 
 /* Table style */
 table {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: calc(~"0.6em + 0.5vw");
+    border-collapse: collapse;
+    border-bottom: 2px solid var(--purp);
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.10),
+     0px 10px 20px rgba(0,0,0,0.05),
+     0px 20px 20px rgba(0,0,0,0.05),
+     0px 30px 20px rgba(0,0,0,0.05);
 
-  thead {
-    background-color: var(--purp);
-    color: #FFf;
-  }
+     thead {
+       background-color: var(--purp);
+       color: #FFF;
+       text-transform: uppercase;
 
-  .bordered td{
-      border-right: 5px solid red;
-  }
+       tr {
+         &:hover {
+           background-color: var(--purp);
+          }
+         }
+     }
+
+     tr:hover {
+        background: #f4f4f4;
+     }
+
+    td, th {
+        border: 1px solid #eee;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th {
+        color: #FFF;
+        background-color: var(--purp);
+    }
 }
+
+th:first-child,
+td:first-child {
+    padding-left: 5px;
+}
+
+tr {
+    border-bottom: 1px solid var(--purp);
+}
+/* end table*/ 
 
 /* HTML  DIFF STyle */
 del, ins {
