@@ -38,19 +38,27 @@ module.exports = {
     },
 
     getAuditById: (req, res) => {
-        Audit.findById(req.params.id)
-            .then((result) => {
-                const newData = require('../helpers/fixhtml1')(result);
-                res.render('audit', {audit: newData, user: req.session.user, visitor: req.session.visitor});
-            }).catch(err => console.log("Error Retrieving data"));
+        if(req.session.user || req.session.visitor) {
+            Audit.findById(req.params.id)
+                .then((result) => {
+                    const newData = require('../helpers/fixhtml1')(result);
+                    res.render('audit', {audit: newData, user: req.session.user, visitor: req.session.visitor});
+                }).catch(err => console.log("Error Retrieving data"));
+        } else {
+            res.redirect('/');
+        }
     },
 
     getDevAuditById: (req, res) => {
-        Audit.findById(req.params.id).then((result) => {
-            const newData = require('../helpers/fixhtml1')(result);
-            const diff = require('../helpers/diff2html')(newData);
-            res.render('devAudit', {audit: result, code: diff, user: req.session.user, visitor: req.session.visitor});
-        });
+        if(req.session.user || req.session.visitor) {
+            Audit.findById(req.params.id).then((result) => {
+                const newData = require('../helpers/fixhtml1')(result);
+                const diff = require('../helpers/diff2html')(newData);
+                res.render('devAudit', {audit: result, code: diff, user: req.session.user, visitor: req.session.visitor});
+            });
+        } else {
+            res.redirect('/');
+        }
     },
 
     deleteDevAuditById: (req, res) => {
