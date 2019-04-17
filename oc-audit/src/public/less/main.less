@@ -14,7 +14,25 @@ h3 {
 body {
   background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/images/bg.jpg');
   font-family: "Lato";
+  min-height: 100vh;
 }
+
+section#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(~"100vh - 214px"); //page size minus sum of nav and footer height
+  padding: 0 2em;
+  text-align: center;
+}
+
+footer.page-footer {
+  margin-top: 50px;
+  background-color: var(--purp);
+}
+
 
 // button style
 .bg-purp, .tabs .tab a.active {
@@ -111,17 +129,6 @@ div.cover {
 }
 
 /* Custom Stylesheet */
-section#main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 90vh;
-  width: 100%;
-  padding: 0 2em;
-  text-align: center;
-}
-
 .dropdown-content {
   top: 100% !important;
 }
@@ -134,7 +141,7 @@ section#main {
 /* Floating button*/
 .add-float {
     position: fixed;
-    bottom: 2em;
+    bottom: 6em;
     right: 1em;
     color: #FFF;
 
