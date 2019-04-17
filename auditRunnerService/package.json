@@ -1,7 +1,8 @@
 {
   "name": "auditRunnerService",
+  "author": "Oumar Diarra",
   "version": "1.0.0",
-  "description": "",
+  "description": "Service for running the audit of all registered Sites",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"

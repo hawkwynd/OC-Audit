@@ -1,7 +1,8 @@
 {
-  "name": "api",
+  "name": "OC AUDIT",
   "version": "1.0.0",
-  "description": "OMNICOMMANDER AUDIT TOOL.",
+  "description": "OMNICOMMANDER AUDIT TOOL. Application for squarespace wesites audits",
+  "author": "Oumar Diarra <oumar@omnicommander.com>",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +13,6 @@
     "type": "git"
   },
   "keywords": [],
-  "author": "Oumar Diarra <oumar@omnicommander.com>",
   "license": "MIT",
   "dependencies": {
     "async": "^2.6.0",
