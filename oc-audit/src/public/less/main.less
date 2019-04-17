@@ -23,6 +23,22 @@ body {
   max-width: 2000px !important;
 }
 
+.tab_content {
+  padding-top: 5em !important;
+}
+
+.sticky {
+  position: fixed !important;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + div {
+  padding-top: 60px;
+}
+
 
 @media only screen and (min-width: 993px){
   .container {
@@ -266,3 +282,9 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 .tabs .tab a {
   color: var(--purp);
 }
+
+/* tabs ovverride*/ 
+.tabs .tab a {
+  color: var(--purp) !important;
+}
+/*end  tabs ovverride*/ 
