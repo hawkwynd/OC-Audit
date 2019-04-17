@@ -1,3 +1,4 @@
+// Tabs sticky 
 window.onscroll = function() {myFunction()};
 
 var navbar = document.getElementById("tab-nav");
