@@ -1,5 +1,8 @@
+/* jshint esversion: 6 */
+
 const axios = require('axios');
 const Customer = require('mongoose').model('Customer');
+const mailer = require('./mailService');
 
 const initialLoad =  async function(array, customer) {
 	customer.sitemap = [];
@@ -24,7 +27,15 @@ const initialLoad =  async function(array, customer) {
 		
 		Promise.all(sitemap).then(results => {
 			customer.sitemap = results.filter(res => res.content);
-            new Customer(customer).save();
+            new Customer(customer).save().then((object) => {
+				const html = `
+					<h3>${object.name} has been registered </h3>
+					<p>Access Token: ${object.code}</p>
+					<p> <a href="www.omnicommando.com"> OC AUDIT </a> </p>
+				`;
+				console.log(object.email);
+				mailer(object.email, 'Customer Registered', html);
+			});
 		});
 }
 

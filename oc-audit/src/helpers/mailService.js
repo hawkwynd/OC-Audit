@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-const config = require('./config');
+const config = require('../config');
 
 const mailer = async(to, subject, html) => {
 

@@ -1,6 +1,7 @@
 /* jshint esversion: 6 */
 
 const Customer = require('mongoose').model('Customer');
+const Audit = require('mongoose').model('Audit');
 const axios = require('axios');
 const initialLoad = require('../helpers/initalLoad');
 const parseXml = require('xml2js').parseString;
@@ -8,11 +9,17 @@ const parseXml = require('xml2js').parseString;
 module.exports = {
     index: (req, res) => {
         if(req.session.user) {
-        Customer.find().then((customers) => {
-            if(customers) {
-        	    res.render('home', {customers: customers, user: req.session.user});        
-            }
-        });
+            Customer.aggregate([{
+                $lookup: 
+                        {
+                          from: "audits",
+                          localField: "_id",
+                          foreignField: "cu",
+                          as: "audits"
+                        }}
+            ]).exec((err, results) => {
+                if(results) res.render('home', {customers: results, user: req.session.user});
+            });
         } else {
             res.redirect('/customer/login');
         }
@@ -86,5 +93,14 @@ module.exports = {
                 }
                 });
             }
+    },
+    deleteDevAuditById: (req, res) => {
+        const id = req.params.id;
+        Audit.deleteMany({cu: id}, function(err) {
+            if(err) console.log();
+        });
+        Customer.findByIdAndDelete(id).then(results => {
+            res.redirect('/');
+        });
     }
 };

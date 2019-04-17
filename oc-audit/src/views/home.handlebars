@@ -6,18 +6,20 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Number of Links</td>
+                        <td>Number of Changes</td>
                         <td>Access Code</td>
                         <td>View</td>
+                        <td>Delete</td>
                     </tr>
                 </thead>
                 <tbody>
                     {{# each customers }}
                     <tr>
                         <td>{{this.name}}</td>
-                        <td>{{this.sitemap.length}}</td>
+                        <td>{{this.audits.length}}</td>
                         <td>{{this.code}}</td>
-                        <td><a href="/audits?cu={{this.id}}"> <i class="material-icons">remove_red_eye</i></a></td>
+                        <td><a href="/audits?cu={{this._id}}"> <i class="material-icons">remove_red_eye</i></a></td>
+                        <td><a href="/customer/delete/{{this._id}}"><i class="material-icons red-text darken-4">delete</td>
                     </tr>
                     {{/each}}
                 </tbody>

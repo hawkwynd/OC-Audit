@@ -64,6 +64,7 @@ app.get('/customer/login', customerController.renderLogin);
 app.get('/newCustomer', customerController.renderCustomerRegister);
 app.post('/register-customer', customerController.registerCustomer);
 app.post('/customer/login', customerController.login);
+app.get('/customer/delete/:id', customerController.deleteDevAuditById);
 
 // Audits routes
 app.get('/audits', auditController.getAudits);
