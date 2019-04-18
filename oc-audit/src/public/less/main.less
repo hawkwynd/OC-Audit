@@ -23,13 +23,51 @@ section#main {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: calc(~"100vh - 214px"); //page size minus sum of nav and footer height
+  min-height: calc(~"100vh - 164px"); //page size minus sum of nav and footer height
   padding: 0 2em;
+  padding-bottom: 50px;
   text-align: center;
 }
 
+.split {
+  display: flex;
+  flex-wrap: wrap;
+
+  .left, .right {
+    flex: 1;
+    min-width: 600px;
+  }
+
+  .right {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  .left {
+    background-color: fadeout(#571389, 20%);
+    h2, p, i {
+      color: #fff;
+      }
+
+  p {
+    font-size: 1.3em;
+
+    i {
+      font-size: 1.8em;
+    }
+  }
+}
+}
+
+@media screen and (max-width: 750px) {
+  .split {
+    flex-direction: column;
+    .left, .right {
+      min-width: auto;
+    }
+  }
+  
+}
+
 footer.page-footer {
-  margin-top: 50px;
   background-color: var(--purp);
 }
 

@@ -1,4 +1,6 @@
+// -------------------------------------------------------------------------
 // Tabs sticky 
+// -------------------------------------------------------------------------
 window.onscroll = function() {myFunction()};
 
 var navbar = document.getElementById("tab-nav");
@@ -11,3 +13,12 @@ function myFunction() {
     navbar.classList.remove("sticky");
   }
 }
+
+// -------------------------------------------------------------------------
+// Disable links on imported sites
+// -------------------------------------------------------------------------
+$(document).ready(function(){
+  $("#diff a, #old a, #new a").on('click', function(e){
+    e.preventDefault();
+  })
+});
