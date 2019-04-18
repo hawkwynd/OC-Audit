@@ -42,6 +42,7 @@ module.exports = {
         if(req.session.user) {
             Customer.findById(req.params.id).then(result => {
                 res.render('editCustomer', {success: req.session.success, errors: req.session.errors, user: req.session.user, customer: result});
+                req.session.error = null;
             });
         } else {
             res.redirect("/");
