@@ -29,6 +29,7 @@ $(document).ready(function(){
 $(document).ready(function(){
   if($(".back")) {
     $("back").on('click', function(e){
+      e.preventDefault();
       window.history.back();
     });
   }
