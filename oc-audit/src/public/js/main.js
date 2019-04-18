@@ -27,7 +27,9 @@ $(document).ready(function(){
 // Back script
 // -------------------------------------------------------------------------
 $(document).ready(function(){
-  $("back").on('click', function(e){
-    window.history.back();
-  });
+  if($(".back")) {
+    $("back").on('click', function(e){
+      window.history.back();
+    });
+  }
 });
