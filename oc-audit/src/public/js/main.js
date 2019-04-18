@@ -20,5 +20,14 @@ function myFunction() {
 $(document).ready(function(){
   $("#diff a, #old a, #new a").on('click', function(e){
     e.preventDefault();
-  })
+  });
+});
+
+// -------------------------------------------------------------------------
+// Back script
+// -------------------------------------------------------------------------
+$(document).ready(function(){
+  $("back").on('click', function(e){
+    window.history.back();
+  });
 });
