@@ -15,7 +15,7 @@ module.exports = {
                 id = referer.substring(referer.indexOf('=') + 1);
             }
 
-            if(req.query.cu || id) {
+            if(req.query.cu || (id && req.query.date)) {
                 cu = req.query.cu || id;
                 query= req.query.date ? {cu: cu, modified: moment(req.query.date).format("YYYY-MM-DD")} : {cu: cu};
             } else {
