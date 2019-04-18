@@ -88,6 +88,13 @@ const run = async (customers) => {
 						if(error) { 
 							console.log(error);
 						} else {
+							const mail_html = `
+							<h2 style="color:purple;">OC Audit detected a change on your Wesbite</h2>
+							<p>Page Url: <a href="${audit.url}">${audit.url} </a></p>
+							<p>Visit OC Audit Portal <a href="www.omnicommando.com">Click here </a></p>
+
+							`;
+							mailer('oumar@omnicommander.com', 'Website change', mail_html);
 							console.log(`${model.url} updated!`);
 							// send mail
 						}
