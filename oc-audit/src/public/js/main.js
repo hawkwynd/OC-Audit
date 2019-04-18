@@ -1,10 +1,11 @@
 // -------------------------------------------------------------------------
 // Tabs sticky 
 // -------------------------------------------------------------------------
+var navbar = document.getElementById("tab-nav");
+
 window.onscroll = function() {myFunction()};
 
-var navbar = document.getElementById("tab-nav");
-var sticky = navbar.offsetTop;
+var sticky = navbar && navbar.offsetTop;
 
 function myFunction() {
   if (window.pageYOffset >= sticky) {
@@ -27,10 +28,8 @@ $(document).ready(function(){
 // Back script
 // -------------------------------------------------------------------------
 $(document).ready(function(){
-  if($(".back")) {
     $("back").on('click', function(e){
       e.preventDefault();
       window.history.back();
     });
-  }
 });
