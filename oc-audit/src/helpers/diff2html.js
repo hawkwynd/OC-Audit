@@ -2,14 +2,14 @@ let Diff2Html = require("diff2html").Diff2Html;
 let difflib = require('difflib');
 
 module.exports = (audit) => {
-    let unifiedDiff = difflib.unifiedDiff(audit.oldData.split(' '), audit.newData.split(' '), {
+    let unifiedDiff = difflib.unifiedDiff(audit.oldData.split('>'), audit.newData.split('>'), {
     fromfile: "Previews Version",
     tofile: "Current Version",
     fromfileDate: audit.oldData,
     tofileDate:  audit.newData,
     n: '2'
   });
-  
+  console.log(unifiedDiff);
   unifiedDiff = unifiedDiff.map((line, index) => {
 
       /* 
