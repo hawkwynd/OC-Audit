@@ -12,6 +12,10 @@ const mongoose = require('mongoose');
         type: String,
         index: true
     },
+    email: {
+      type: String,
+      required: true
+    },
     sitemap: [
         {
             loc: String,

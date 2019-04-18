@@ -94,7 +94,7 @@ const run = async (customers) => {
 							<p>Visit OC Audit Portal <a href="www.omnicommando.com">Click here </a></p>
 
 							`;
-							mailer('oumar@omnicommander.com', 'Website change', mail_html);
+							mailer(model.email, 'Website change detected', mail_html);
 							console.log(`${model.url} updated!`);
 							// send mail
 						}
