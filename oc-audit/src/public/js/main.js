@@ -22,6 +22,8 @@ $(document).ready(function(){
   $("#diff a, #old a, #new a").on('click', function(e){
     e.preventDefault();
   });
+  // aos
+  $("*[data-aos]").removeAttr('data-aos');
 });
 
 // -------------------------------------------------------------------------
