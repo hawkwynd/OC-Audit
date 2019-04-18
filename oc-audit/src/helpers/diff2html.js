@@ -9,7 +9,6 @@ module.exports = (audit) => {
     tofileDate:  audit.newData,
     n: '2'
   });
-  console.log(unifiedDiff);
   unifiedDiff = unifiedDiff.map((line, index) => {
 
       /* 
