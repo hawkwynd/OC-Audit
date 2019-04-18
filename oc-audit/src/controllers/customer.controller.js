@@ -38,6 +38,41 @@ module.exports = {
             res.redirect("/");
         }
     },
+    RenderEditCustomerById: (req, res) => {
+        if(req.session.user) {
+            Customer.findById(req.params.id).then(result => {
+                res.render('editCustomer', {success: req.session.success, errors: req.session.errors, user: req.session.user, customer: result});
+            });
+        } else {
+            res.redirect("/");
+        }
+    },
+
+    editCustomerById: (req, res) => {
+        const {id, code, name, url, email } = req.body;
+
+            req.checkBody('name', 'Name is required').notEmpty();
+            req.checkBody('url', 'Url is required').notEmpty();
+            req.checkBody('url', 'Url Should be www.url.com ').matches(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+            req.checkBody('email', 'Email is required').notEmpty();
+
+            var errors = req.validationErrors();
+
+            if(errors) {
+                req.session.errors = errors;
+                req.session.success = false;
+                res.redirect('/customer/edit/'+ id);
+            } else {
+                // No errors
+                req.session.success = true;
+
+                Customer.update({_id: id}, { $set: {name: name, url: url, email: email} })
+                    .then((affected,error , result) => {
+                        if(error) console.log(error);
+                        res.redirect('/');
+                });
+            }
+        },
 
     registerCustomer: (req, res) => {
         const {name, url, email } = req.body;

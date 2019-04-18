@@ -36,7 +36,7 @@ module.exports = {
             res.redirect('/customer/login');
         }
     },
-
+    
     getAuditById: (req, res) => {
         if(req.session.user || req.session.visitor) {
             Audit.findById(req.params.id)
@@ -60,8 +60,7 @@ module.exports = {
             res.redirect('/');
         }
     },
-
-    deleteDevAuditById: (req, res) => {
+    deleteAuditById: (req, res) => {
         Audit.findByIdAndDelete(req.params.id).then(results => {
             res.redirect('/audits');
         });

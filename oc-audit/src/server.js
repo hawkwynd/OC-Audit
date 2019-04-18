@@ -65,12 +65,14 @@ app.get('/newCustomer', customerController.renderCustomerRegister);
 app.post('/register-customer', customerController.registerCustomer);
 app.post('/customer/login', customerController.login);
 app.get('/customer/delete/:id', customerController.deleteDevAuditById);
+app.get('/customer/edit/:id', customerController.RenderEditCustomerById);
+app.post('/customer/edit', customerController.editCustomerById);
 
 // Audits routes
 app.get('/audits', auditController.getAudits);
 app.get('/audits/:id', auditController.getAuditById);
 app.get('/audits/dev/:id', auditController.getDevAuditById);
-app.get('/audits/delete/:id', auditController.deleteDevAuditById);
+app.get('/audits/delete/:id', auditController.deleteAuditById);
 // app.get('/audits/customer/:id', auditController.getAuditByCustomerId);
 
 // Admin
