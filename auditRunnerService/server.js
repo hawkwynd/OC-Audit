@@ -7,7 +7,7 @@ const keys = require('./config');
 const mailer = require('./mailService');
 
 // Library for difference between 2 html
-const htmldiff = require('./htmlDiff');
+const htmldiff = require('./htmlDiff2');
 
 // Importing Mongoose model 
 require('./customer.model');
