@@ -5,6 +5,7 @@ const Audit = require('mongoose').model('Audit');
 const axios = require('axios');
 const initialLoad = require('../helpers/initalLoad');
 const parseXml = require('xml2js').parseString;
+const mailer = require('../helpers/mailService');
 
 module.exports = {
     index: (req, res) => {
@@ -107,7 +108,16 @@ module.exports = {
                             initialLoad(sitemapArray.urlset.url, newCustomer);
                         });
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log('Error Registering Site');
+                        const html = `
+                            <h3 style="color: #662c90;">${newCustomer.name} could not be accessed </h3>
+                            <p>make sure ${newCustomer.name} is publicly accessible</p>
+                            <p> <a href="www.omnicommando.com"> OC AUDIT </a> </p>
+                        `;
+
+                        mailer(newCustomer.email, 'Customer Registered Failed', html);
+                    });
 
 
                 res.redirect('/');
