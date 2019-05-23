@@ -29,12 +29,14 @@ const initialLoad =  async function(array, customer) {
 			customer.sitemap = results.filter(res => res.content);
             new Customer(customer).save().then((object) => {
 				const html = `
-					<h3>${object.name} has been registered </h3>
+					<h3>Congratulations, you are officially registered for OC SCAN! </
+					<p><span style="text-transform="uppercase">${object.name}</span> has been registered </p>
+					<p>Moving forward we will be keeping you posted on changes to your website</p>
 					<p>Access Token: ${object.code}</p>
-					<p> <a href="www.omnicommando.com"> OC AUDIT </a> </p>
+					<p> <a href="www.omnicommando.com"> OC SCAN Link</a> </p>
 				`;
 				console.log(object.email);
-				mailer(object.email, 'Customer Registered', html);
+				mailer(object.email, 'OC SCAN Registration', html);
 			});
 		});
 }

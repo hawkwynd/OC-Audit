@@ -109,11 +109,11 @@ module.exports = {
                         });
                     })
                     .catch(err => {
-                        console.log('Error Registering Site');
+                        console.log('Registering Error');
                         const html = `
                             <h3 style="color: #662c90;">${newCustomer.name} could not be accessed </h3>
-                            <p>make sure ${newCustomer.name} is publicly accessible</p>
-                            <p> <a href="www.omnicommando.com"> OC AUDIT </a> </p>
+                            <p>make sure <span style="text-transform="Uppercase">${newCustomer.name}</span> is publicly accessible</p>
+                            <p> <a href="www.omnicommando.com"> OC SCAN </a> </p>
                         `;
 
                         mailer(newCustomer.email, 'Customer Registered Failed', html);

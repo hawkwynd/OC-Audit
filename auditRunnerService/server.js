@@ -89,12 +89,13 @@ const run = async (customers) => {
 							console.log(error);
 						} else {
 							const mail_html = `
-							<h2 style="color:purple;">OC Audit detected a change on your Wesbite</h2>
-							<p>Page Url: <a href="${audit.url}">${audit.url} </a></p>
-							<p>Visit OC Audit Portal <a href="www.omnicommando.com">Click here </a></p>
+							<h3 style="color:purple;">OC SCAN detected a change to your Wesbite</h3>
+							<p>Click below to see a report of changes and when (??) they were made. </p>
+							<p>Visit OC SCAN Portal <a href="www.omnicommando.com">Click here </a></p>
+							<p>Link to the Page on your site: <a href="${audit.url}">${audit.url} </a></p>
 
 							`;
-							mailer(model.email, 'Website change detected', mail_html);
+							mailer(model.email, 'OC SCAN detected change', mail_html);
 							console.log(`${model.url} updated!`);
 							// send mail
 						}

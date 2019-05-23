@@ -23,7 +23,7 @@ module.exports = (audit) => {
 
   return Diff2Html.getPrettyHtml(
   unifiedDiff.join(''),
-  {inputFormat: 'diff', showFiles: true, matching: 'lines', outputFormat: 'side-by-side', maxLineLengthHighlight: 20000});
+  {inputFormat: 'diff', showFiles: true, matching: 'lines', outputFormat: 'line-by-line', maxLineLengthHighlight: 20000});
 
 
 };
