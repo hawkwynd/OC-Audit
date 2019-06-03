@@ -1,19 +1,19 @@
 // -------------------------------------------------------------------------
 // Tabs sticky 
 // -------------------------------------------------------------------------
-var navbar = document.getElementById("tab-nav");
+var $navbar = $("#tab-nav"),
+    y_pos = $navbar.offset().top,
+    height = $navbar.height();
 
-window.onscroll = function() {myFunction()};
+$(document).on("scroll", function() {
+    var scrollTop = $(this).scrollTop();
+    if (scrollTop >= y_pos) {
+        !$navbar.hasClass("sticky") && $navbar.addClass("sticky");
+    } else if (scrollTop < y_pos) {
+        $navbar.removeClass("sticky");
+    }
+});
 
-
-function myFunction() {
-var sticky = navbar && navbar.offsetTop;
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
 
 // -------------------------------------------------------------------------
 // Disable links on imported sites
