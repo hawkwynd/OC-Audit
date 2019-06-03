@@ -26,6 +26,10 @@ module.exports = {
         }
     },
 
+    welcome: (req, res) => {
+            res.render('welcome', { customer: req.session.visitor });
+    },
+
     renderLogin: (req, res) => {
         res.render('customerLogin', {error: req.session.error});
         req.session.error = null;

@@ -34,7 +34,7 @@ const initialLoad =  async function(array, customer) {
 					<p><span style="text-transform="uppercase">${object.name}</span> has been registered </p>
 					<p>Moving forward we will be keeping you posted on changes to your website</p>
 					<p>Access Token: ${object.code}</p>
-					<p> <a href="www.omnicommando.com"> OC SCAN Link</a> </p>
+					<p> <a href="www.omnicommando.com/welcome"> Visit OC SCAN </a> </p>
 				`;
 				console.log(object.email);
 				mailer(object.email, 'OC SCAN Registration', html);

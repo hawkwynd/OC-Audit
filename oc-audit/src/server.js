@@ -60,6 +60,7 @@ app.set('view engine', 'handlebars');
 
 // Customer routes
 app.get('/', customerController.index);
+app.get('/welcome', customerController.welcome);
 app.get('/customer/login', customerController.renderLogin);
 app.get('/newCustomer', customerController.renderCustomerRegister);
 app.post('/register-customer', customerController.registerCustomer);
