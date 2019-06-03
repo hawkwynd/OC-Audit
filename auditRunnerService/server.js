@@ -20,32 +20,27 @@ const run = async (customers) => {
 	let changedUrls = [];
 	for(let customer of customers) {
 				console.log(`${customer.url} --------------------- Audit`);
-        const array = await axios.get(`https://${customer.url}/sitemap.xml`)
-            .then(res => {
-					let jsonData = []; 
-					parseXml(res.data, (err, sitemapArray) =>  jsonData = sitemapArray.urlset.url);
-					return jsonData;
-				}).catch(err => console.log(`${customer.url} is down`));
 
-				if(array) {
-					for(newSitemap of array) {
-						const tempSitemap = customer.sitemap.find(data => {
-							if(newSitemap.lastmod) {
-								return (data.loc === newSitemap.loc[0]) && (newSitemap.lastmod && (data.lastChange !== newSitemap.lastmod[0]));
-									}							
-							return null;
-						});
+				if(customer.sitemap) {
+					for(currentSitemap of customer.sitemap) {
 						
-						if(tempSitemap) {
-							// console.log(tempSitemap.loc);
-							changedUrls.push({
-								id: tempSitemap.id,
-								url: tempSitemap.loc,
-								customer: customer,
-								content: tempSitemap.content,
-								modified: newSitemap.lastmod[0]
-							});
-						}		
+						const loadedData = await axios.get(`${currentSitemap.loc}?format=json`)
+							.then(res => res.data)
+							.catch(err => console.log(`${customer.url} is down`));
+						if(loadedData) {
+							const tempSitemap = (currentSitemap.lastChange.toString() !== loadedData.collection.updatedOn.toString()) ? currentSitemap : null;
+							
+							if(tempSitemap) {
+								changedUrls.push({
+									id: tempSitemap.id,
+									url: tempSitemap.loc,
+									customer: customer,
+									content: tempSitemap.content,
+									modified: loadedData.collection.updatedOn,
+									data: loadedData
+								});
+							}		
+						}
 					}
 				}
 	}
@@ -54,27 +49,25 @@ const run = async (customers) => {
 
 	for(let currentUrl of changedUrls) {
 		// Content Return the site content from the API
-		const content = await axios.get(currentUrl.url + '?format=json').then(res => res.data)
-			.then(data =>  {
-				if(data.collection.typeName === "index") {
-					return data.collection.collections.map(col => col.mainContent).join("<br><br>");
-				} else if(data.collection.typeName === "page"){
-					return data.mainContent;
-				}
-			}).catch(error => console.log(`Error retrieving ${currentUrl.url}`));
+		let content = "";
+		if(currentUrl.data.collection.typeName === "index") {
+			content =  currentUrl.data.collection.collections.map(col => col.mainContent).join("<br><br>");
+		} else if(currentUrl.data.collection.typeName === "page"){
+			content =  currentUrl.data.mainContent;
+		}
 
-			if(content) {
-				// Create an Audit Object
-					const audit = {
-						url: currentUrl.url,
-						oldData: currentUrl.content,
-						newData: content,
-						diffData: htmldiff(currentUrl.content, content),
-						cu: currentUrl.customer.id,
-						cuName: currentUrl.customer.name,
-						rootUrl: currentUrl.customer.url,
-						modified: currentUrl.modified
-					};
+		if(content) {
+			// Create an Audit Object
+				const audit = {
+					url: currentUrl.url,
+					oldData: currentUrl.content,
+					newData: content,
+					diffData: htmldiff(currentUrl.content, content),
+					cu: currentUrl.customer.id,
+					cuName: currentUrl.customer.name,
+					rootUrl: currentUrl.customer.url,
+					modified: currentUrl.modified
+				};
 
 					// Saves Audit
 					new Audit(audit).save();
@@ -132,7 +125,7 @@ const runner = () => {
 				// Loop To make process run every {1.5s}
 				setTimeout(() => {
 						runner();					
-				}, 90000);
+				}, 60000);
 };
 
 runner();

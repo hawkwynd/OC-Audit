@@ -7,10 +7,11 @@ const mailer = require('./mailService');
 const initialLoad =  async function(array, customer) {
 	customer.sitemap = [];
 	let sitemap =  await array.map(async (el) => {
-			
+		let lastChange = "";
 		const content = await axios.get( el.loc[0]+'/?format=json')
 			.then(res => res.data)
 			.then(data =>  {
+				lastChange = data.collection.updatedOn;
 				if(data.collection.typeName === "index") {
 					return data.collection.collections.map(col => col.mainContent).join("<br><br>");
 				} else if(data.collection.typeName === "page"){
@@ -20,7 +21,7 @@ const initialLoad =  async function(array, customer) {
 
 			return {
 				loc : el.loc[0],
-		 		lastChange: el.lastmod ? el.lastmod[0] : null,
+		 		lastChange: lastChange,
 				content: content
 			}
 		});
