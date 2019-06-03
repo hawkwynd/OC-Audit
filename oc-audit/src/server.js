@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const keys = require('./config');
 const passport = require('passport');
+const moment = require('moment');
 
 const config = require('./config/index');
 // console.log(config);
@@ -43,7 +44,12 @@ mongoose.connect(mongodbUri, {useNewUrlParser: true})
 app.use(express.static('public'));
 // Setting View Engine
 app.engine('handlebars', exphbs({
-	defaultLayout: 'main'
+	defaultLayout: 'main',
+  helpers: {
+        formatDate: function (date, format) {
+            return moment.unix(date.slice(0, 10)).format(format);
+        }
+    }
 }));
 
 app.use(bodyParser.json());

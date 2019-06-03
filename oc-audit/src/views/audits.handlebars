@@ -26,7 +26,7 @@
             <tr>
                 <td><a href="/audits/{{this.id}}">{{{this.cuName}}}</td>
                 <td><a href="/audits/{{this.id}}">{{{this.url}}}</td>
-                <td><a href="/audits/{{this.id}}">{{{this.modified}}}</td>
+                <td><a href="/audits/{{this.id}}">{{{formatDate this.modified "MM/DD/YYYY"}}}</td>
                 <td><a href="/audits/dev/{{this.id}}">View Code</td>
                 {{#if ../user}}
                     <td><a href="/audits/delete/{{this.id}}"><i class="material-icons red-text darken-4">delete</td>
