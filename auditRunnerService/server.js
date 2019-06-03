@@ -125,7 +125,8 @@ const runner = () => {
 				// Loop To make process run every {1.5s}
 				setTimeout(() => {
 						runner();					
-				}, 60000);
+
+				},4*60*60*1000);
 };
 
 runner();
