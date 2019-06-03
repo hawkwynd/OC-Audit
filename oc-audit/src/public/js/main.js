@@ -5,9 +5,9 @@ var navbar = document.getElementById("tab-nav");
 
 window.onscroll = function() {myFunction()};
 
-var sticky = navbar && navbar.offsetTop;
 
 function myFunction() {
+var sticky = navbar && navbar.offsetTop;
   if (window.pageYOffset >= sticky) {
     navbar.classList.add("sticky");
   } else {
