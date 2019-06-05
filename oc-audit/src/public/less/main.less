@@ -21,10 +21,6 @@ li {
   list-style: none !important;
 }
 
-ul {
-  background: none !important;
-  width: auto !important;
-}
 
 ul>li {
   list-style: none !important;
@@ -116,9 +112,13 @@ nav {
   .nav-wrapper {
     display: flex;
     justify-content: space-between;
+    ul {
+      background: none !important;
+      width: auto !important;
 
-    ul a {
-      font-size: 1.2em;
+      a {
+        font-size: 1.2em;
+      }
     }
   }
 }
