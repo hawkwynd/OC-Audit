@@ -18,16 +18,16 @@ const mailer = async(to, subject, html) => {
   const accessToken = header.Authorization.replace('Bearer ', "");
 
   const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: config.gmail.client_user,
-    clientId: config.gmail.client_id,
-    clientSecret: config.gmail.secret,
-    refreshToken: config.gmail.refresh_token,
-    accessToken: accessToken
-  },
-});
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: config.gmail.client_user,
+      clientId: config.gmail.client_id,
+      clientSecret: config.gmail.secret,
+      refreshToken: config.gmail.refresh_token,
+      accessToken: accessToken
+    },
+  });
 
 var mailOptions = {
     from : 'OMNICOMMANDER <contact@omnicommander.com>',
@@ -47,7 +47,4 @@ transporter.sendMail(mailOptions, function(err, res) {
 });
 };
 
-
 module.exports = mailer;
-
-

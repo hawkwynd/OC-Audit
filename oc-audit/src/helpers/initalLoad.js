@@ -6,12 +6,15 @@ const mailer = require('./mailService');
 
 const initialLoad =  async function(array, customer) {
 	customer.sitemap = [];
+	
 	let sitemap =  await array.map(async (el) => {
 		let lastChange = "";
+
 		const content = await axios.get( el.loc[0]+'/?format=json')
 			.then(res => res.data)
 			.then(data =>  {
 				lastChange = data.collection.updatedOn;
+
 				if(data.collection.typeName === "index") {
 					return data.collection.collections.map(col => col.mainContent).join("<br><br>");
 				} else if(data.collection.typeName === "page"){
@@ -19,27 +22,27 @@ const initialLoad =  async function(array, customer) {
 				}
 			});
 
-			return {
-				loc : el.loc[0],
-		 		lastChange: lastChange,
-				content: content
-			}
+		return {
+			loc : el.loc[0],
+			lastChange: lastChange,
+			content: content
+		}
 		});
 		
-		Promise.all(sitemap).then(results => {
-			customer.sitemap = results.filter(res => res.content);
-            new Customer(customer).save().then((object) => {
-				const html = `
-					<h3>Congratulations, you are officially registered for OC SCAN! </
-					<p><span style="text-transform="uppercase">${object.name}</span> has been registered </p>
-					<p>Moving forward we will be keeping you posted on changes to your website</p>
-					<p>Access Token: ${object.code}</p>
-					<p> <a href="www.omnicommando.com/welcome"> Visit OC SCAN </a> </p>
-				`;
-				console.log(object.email);
-				mailer(object.email, 'OC SCAN Registration', html);
-			});
+	Promise.all(sitemap).then(results => {
+		customer.sitemap = results.filter(res => res.content);
+        new Customer(customer).save().then((object) => {
+			const html = `
+				<h3>Congratulations, you are officially registered for OC SCAN! </
+				<p><span style="text-transform="uppercase">${object.name}</span> has been registered </p>
+				<p>Moving forward we will be keeping you posted on changes to your website</p>
+				<p>Access Token: ${object.code}</p>
+				<p> <a href="www.omnicommando.com/welcome"> Visit OC SCAN </a> </p>
+			`;
+			console.log(object.email);
+			mailer(object.email, 'OC SCAN Registration', html);
 		});
+	});
 }
 
 module.exports =  initialLoad;
