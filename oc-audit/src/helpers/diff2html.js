@@ -2,7 +2,8 @@ let Diff2Html = require("diff2html").Diff2Html;
 let difflib = require('difflib');
 
 module.exports = (audit) => {
-    let unifiedDiff = difflib.unifiedDiff(audit.oldData.match(/<([a-z][a-z0-9]*)\b[^>]*>(.*?)<\/\1>/g), audit.newData.match(/<([a-z][a-z0-9]*)\b[^>]*>(.*?)<\/\1>/g), {
+    let unifiedDiff = difflib
+      .unifiedDiff(audit.oldData.match(/<([a-z][a-z0-9]*)\b[^>]*>(.*?)<\/\1>/g), audit.newData.match(/<([a-z][a-z0-9]*)\b[^>]*>(.*?)<\/\1>/g), {
     fromfile: "Previews Version",
     tofile: "Current Version",
     fromfileDate: audit.oldData,
@@ -10,7 +11,6 @@ module.exports = (audit) => {
     n: '2'
   });
   unifiedDiff = unifiedDiff.map((line, index) => {
-
       /* 
               Checks if next line has change and dosen't already  have a new line, then adss newline character
               helps parse the data
@@ -22,8 +22,9 @@ module.exports = (audit) => {
   });
 
   return Diff2Html.getPrettyHtml(
-  unifiedDiff.join(''),
-  {inputFormat: 'diff', showFiles: true, matching: 'lines', outputFormat: 'line-by-line', maxLineLengthHighlight: 20000});
+    unifiedDiff.join(''),
+    {inputFormat: 'diff', showFiles: true, matching: 'lines', outputFormat: 'line-by-line', maxLineLengthHighlight: 20000}
+  );
 
 
 };

@@ -11,15 +11,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/af.js"></script>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0">
+    <meta name="description" content="Software to scan OMNICOMMANDER client's live websites(On Squarespace) for changes and notify an ADA Compliance professional. All changes are reported.">
     <link rel="icon" type="image/png" href="/images/star.png" />
     <title>OC-Audit</title>
 </head>
 <body>
   <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
+    <ul id="dropdown1" class="dropdown-content lastLogin">
       
       <li class="divider"></li>
-      <li><a href="#!" class="disabled">{{user.login_date}}</a></li>
+      <li>
+        <h6 class="center">last Login:</h6>
+        <a href="#!" class="disabled ">{{user.login_date}}</a>
+      </li>
     </ul>
     <nav>
       <div class="nav-wrapper">

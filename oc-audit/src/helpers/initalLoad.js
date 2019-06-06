@@ -17,7 +17,7 @@ const initialLoad =  async function(array, customer) {
 
 				if(data.collection.typeName === "index") {
 					return data.collection.collections.map(col => col.mainContent).join("<br><br>");
-				} else if(data.collection.typeName === "page"){
+				} else if(data.collection.typeName === "page") {
 					return data.mainContent;
 				}
 			});

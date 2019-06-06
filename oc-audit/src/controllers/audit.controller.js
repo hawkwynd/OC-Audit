@@ -5,7 +5,6 @@ const moment = require('moment');
 
 module.exports = {
     getAudits:   (req, res) => {
-    
         if(req.session.user) {
             let query = {};
             let id = "";
@@ -60,6 +59,7 @@ module.exports = {
             res.redirect('/');
         }
     },
+
     deleteAuditById: (req, res) => {
         Audit.findByIdAndDelete(req.params.id).then(results => {
             res.redirect('/audits');
