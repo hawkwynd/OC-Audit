@@ -91,6 +91,7 @@ app.post('/admin/login', passport.authenticate('local', { failureRedirect: '/adm
 app.get('/admin/logout', adminController.logout);
 
 // Wrong urls Redirect
+app.get('/sitemap.xml', (req, res) => res.send('sitemap.xml.txt'));
 app.get('/robots.txt', (req, res) => res.send('robots.txt'));
 app.get('*', (req, res) => res.redirect('/'));
 
