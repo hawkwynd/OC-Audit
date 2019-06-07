@@ -14,6 +14,12 @@ const mongoose = require('mongoose');
     newData: {
         type: String
     },
+    oldAssets: [{
+        type: String
+    }],
+    newAssets: [{
+        type: String
+    }],
     cu: {
         type: mongoose.Types.ObjectId,
         ref: 'Customer'

@@ -20,7 +20,8 @@ const mongoose = require('mongoose');
         {
             loc: String,
             lastChange: String,
-            content: Schema.Types.Mixed
+            content: Schema.Types.Mixed,
+            assets: [String]
         }
     ]
   },

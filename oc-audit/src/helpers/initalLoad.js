@@ -9,6 +9,7 @@ const initialLoad =  async function(array, customer) {
 	
 	let sitemap =  await array.map(async (el) => {
 		let lastChange = "";
+		let assets = [];
 
 		const content = await axios.get( el.loc[0]+'/?format=json')
 			.then(res => res.data)
@@ -16,8 +17,10 @@ const initialLoad =  async function(array, customer) {
 				lastChange = data.collection.updatedOn;
 
 				if(data.collection.typeName === "index") {
+					assets = data.collection.collections.map(col => col.mainImage ? col.mainImage.assetUrl: null);
 					return data.collection.collections.map(col => col.mainContent).join("<br><br>");
 				} else if(data.collection.typeName === "page") {
+					assets = data.collection.mainImage ? data.collection.mainImage.assetUrl : null;
 					return data.mainContent;
 				}
 			});
@@ -25,7 +28,8 @@ const initialLoad =  async function(array, customer) {
 		return {
 			loc : el.loc[0],
 			lastChange: lastChange,
-			content: content
+			content: content,
+			assets: assets
 		}
 		});
 		

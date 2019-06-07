@@ -19,11 +19,27 @@
     </div>
     <div id="old" class="tab_content col s12">
         <center>
+            <h2> Images</h2>
+            <div class="assetsImages">
+              {{# each audit.oldAssets }}
+                {{#if this}}
+                    <img src="{{this}}" alt="image" style="height:150px; "/>
+                {{/if}}
+                {{/each}}
+            </div>
             {{{audit.oldData}}}
         </center>
     </div>
     <div id="new" class="tab_content col s12">
         <center>
+            <h2> Images</h2>
+            <div class="assetsImages">
+              {{# each audit.newAssets }}
+                {{#if this}}
+                    <img src="{{this}}" alt="image" style="height:150px; "/>
+                {{/if}}
+                {{/each}}
+            </div>
             {{{audit.newData}}}
         </center>
     </div>

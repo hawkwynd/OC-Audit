@@ -5,6 +5,7 @@ const axios = require('axios');
 const parseXml = require('xml2js').parseString;
 const keys = require('./config');
 const mailer = require('./mailService');
+const isEqual = require('lodash').isEqual;
 
 // Library for difference between 2 html
 const htmldiff = require('./htmlDiff2');
@@ -14,7 +15,14 @@ require('./customer.model');
 require('./audit.model');
 const Customer = require('mongoose').model('Customer');
 const Audit = require('mongoose').model('Audit');
-
+const getAssets = (data) => {
+	if(data.collection.typeName === "index") {
+		return data.collection.collections.map(col => col.mainImage ? col.mainImage.assetUrl: null);
+					
+		} else if(data.collection.typeName === "page") {
+			return data.collection.mainImage ? [data.collection.mainImage.assetUrl] : null;
+		}
+}
 // Audit Logic
 const run = async (customers) => {
 	let changedUrls = [];
@@ -28,7 +36,11 @@ const run = async (customers) => {
 							.then(res => res.data)
 							.catch(err => console.log(`${customer.url} is down`));
 						if(loadedData) {
-							const tempSitemap = (currentSitemap.lastChange.toString() !== loadedData.collection.updatedOn.toString()) ? currentSitemap : null;
+							const assets = getAssets(loadedData);
+							
+							const tempSitemap = ((currentSitemap.lastChange.toString() !== loadedData.collection.updatedOn.toString()) || !isEqual(currentSitemap.assets, assets)) 
+								? currentSitemap 
+								: null;
 							
 							if(tempSitemap) {
 								changedUrls.push({
@@ -37,7 +49,9 @@ const run = async (customers) => {
 									customer: customer,
 									content: tempSitemap.content,
 									modified: loadedData.collection.updatedOn,
-									data: loadedData
+									data: loadedData,
+									oldAssets: currentSitemap.assets,
+									newAssets: assets,
 								});
 							}		
 						}
@@ -62,6 +76,8 @@ const run = async (customers) => {
 					url: currentUrl.url,
 					oldData: currentUrl.content,
 					newData: content,
+					oldAssets: currentUrl.oldAssets,
+					newAssets: currentUrl.newAssets,
 					diffData: htmldiff(currentUrl.content, content),
 					cu: currentUrl.customer.id,
 					cuName: currentUrl.customer.name,
@@ -73,7 +89,7 @@ const run = async (customers) => {
 					new Audit(audit).save();
 
 					// Creates New updated Sitemap and update Customer Model
-					const nsm = [...currentUrl.customer.sitemap.filter(el => el.id !== currentUrl.id), {loc: currentUrl.url, lastChange: currentUrl.modified, content: content}];
+					const nsm = [...currentUrl.customer.sitemap.filter(el => el.id !== currentUrl.id), {loc: currentUrl.url, lastChange: currentUrl.modified, content: content, assets: currentUrl.newAssets}];
 					const updatedCustomer = currentUrl.customer;
 					updatedCustomer.sitemap = nsm; 
 
