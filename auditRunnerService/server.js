@@ -6,6 +6,7 @@ const parseXml = require('xml2js').parseString;
 const keys = require('./config');
 const mailer = require('./mailService');
 const isEqual = require('lodash').isEqual;
+const moment = require('moment');
 
 // Library for difference between 2 html
 const htmldiff = require('./htmlDiff2');
@@ -49,6 +50,7 @@ const run = async (customers) => {
 									customer: customer,
 									content: tempSitemap.content,
 									modified: loadedData.collection.updatedOn,
+									compareDate: moment.unix(loadedData.collection.updatedOn.toString().slice(0, 10)).format("YYYY-MM-DD"),
 									data: loadedData,
 									oldAssets: currentSitemap.assets,
 									newAssets: assets,
@@ -82,7 +84,8 @@ const run = async (customers) => {
 					cu: currentUrl.customer.id,
 					cuName: currentUrl.customer.name,
 					rootUrl: currentUrl.customer.url,
-					modified: currentUrl.modified
+					modified: currentUrl.modified,
+					compareDate: currentUrl.compareDate
 				};
 
 					// Saves Audit
