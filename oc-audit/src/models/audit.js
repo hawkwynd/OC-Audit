@@ -32,6 +32,9 @@ const mongoose = require('mongoose');
     },
     modified: {
       type: String
+    },
+    compareDate: {
+      type: String
     }
   },
   { timestamps: true}

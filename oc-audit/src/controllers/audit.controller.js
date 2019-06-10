@@ -16,9 +16,9 @@ module.exports = {
 
             if(req.query.cu || (id && req.query.date)) {
                 cu = req.query.cu || id;
-                query= req.query.date ? {cu: cu, modified: moment(req.query.date).format("YYYY-MM-DD")} : {cu: cu};
+                query= req.query.date ? {cu: cu, compareDate: req.query.date} : {cu: cu};
             } else {
-                 query= req.query.date ? {modified: moment(req.query.date).format("YYYY-MM-DD")} : {};
+                 query= req.query.date ? {compareDate: req.query.date} : {};
             }
             Audit.find(query).then(results => {
                 const newData = require('../helpers/htmlParse')(results);
@@ -26,7 +26,7 @@ module.exports = {
             });
         } else if(req.session.visitor) {
             const id = mongoose.Types.ObjectId(req.session.visitor);
-            const query= req.query.date ? {cu: id, modified: moment(req.query.date).format("YYYY-MM-DD")} : {cu: id};
+            const query= req.query.date ? {cu: id, compareDate: req.query.date} : {cu: id};
             Audit.find(query).then(results => {
                 const newData = require('../helpers/htmlParse')(results);
                 res.render('audits', {audits: newData.sort((a, b) => b.modified.localeCompare(a.modified)), visitor: req.session.visitor});

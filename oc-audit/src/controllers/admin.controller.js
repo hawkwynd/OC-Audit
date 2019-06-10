@@ -60,7 +60,7 @@ module.exports = {
             } else {
                 // No errors
                 const user = Object.assign({}, req.user._doc);
-                user.login_date = moment(req.last_login_date).format("YYYY-MM-DD");
+                user.login_date = moment(req.last_login_date).format("MM/YYYY/DD");
                 req.session.user = user;
                 req.session.visitor = null;
                 res.redirect('/');
