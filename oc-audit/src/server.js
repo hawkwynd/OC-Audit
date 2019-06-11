@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const keys = require('./config');
 const passport = require('passport');
 const moment = require('moment');
+const paginate = require('express-paginate');
 
 const config = require('./config/index');
 // console.log(config);
@@ -48,6 +49,12 @@ app.engine('handlebars', exphbs({
   helpers: {
         formatDate: function (date, format) {
             return moment.unix(date.slice(0, 10)).format(format);
+        },
+        json: function (content) {
+          return JSON.stringify(content);
+        },
+        active: function (current, number) {
+          return current == number ? 'active': '';
         }
     }
 }));
@@ -62,7 +69,11 @@ app.use(session({secret: keys.session.secret, saveUninitialized: false, resave: 
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.set('view engine', 'handlebars');
+
+// express paginate midleware
+app.use(paginate.middleware(10, 20));
 
 // Customer routes
 app.get('/', customerController.index);

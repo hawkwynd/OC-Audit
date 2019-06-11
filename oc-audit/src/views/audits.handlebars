@@ -29,11 +29,17 @@
                 <td><a href="/audits/{{this.id}}">{{{formatDate this.modified "MM/DD/YYYY"}}}</td>
                 <td><a href="/audits/dev/{{this.id}}">View Code</td>
                 {{#if ../user}}
-                    <td><a href="/audits/delete/{{this.id}}"><i class="material-icons red-text darken-4">delete</td>
+                    <td><a href="/audits/delete/{{this.id}}" ><i class="material-icons red-text darken-4">delete</td>
                 {{/if}}
             </tr>
             {{/each}}
         </tbody>
     </table>
+    <ul class="pagination"> 
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        {{# each pages }}
+            <li class="waves-effect {{{active ../paginate.page this.number}}} "><a href="{{{this.url}}}">{{this.number}}</a></li>
+        {{/each}}
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
 </div>
-<script src="https://static.squarespace.com/universal/scripts-compressed/common-53415b1d9d60c7be9382-min.en-US.js" type="text/javascript"></script>
