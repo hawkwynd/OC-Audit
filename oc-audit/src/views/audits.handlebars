@@ -36,10 +36,8 @@
         </tbody>
     </table>
     <ul class="pagination"> 
-        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
         {{# each pages }}
             <li class="waves-effect {{{active ../paginate.page this.number}}} "><a href="{{{this.url}}}">{{this.number}}</a></li>
         {{/each}}
-        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
     </ul>
 </div>
