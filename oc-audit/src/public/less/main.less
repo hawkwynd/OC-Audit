@@ -2,6 +2,11 @@
   --purp: #571389;
 }
 
+// FOr certain squarespace Images not displaying such as sliders
+*{
+  opacity: 1 !important;
+}
+
 /* General*/ 
 h1, h2, h3 {
   color: var(--purp);
@@ -11,6 +16,7 @@ h1, h2, h3 {
 h3 {
   font-size: large;
 }
+
 body {
   background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/images/bg.jpg');
   font-family: "Lato";
@@ -78,6 +84,35 @@ section#main {
   }
 }
 }
+
+// ******************************** Accessibility Modal*******************************//
+.modal-overlay {
+  background-color: transparent;
+}
+
+#accessibilityModal {
+
+  h4{
+    color: var(--purp);
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  input[type="checkbox"] {
+    opacity: 0 !important;
+  }
+
+  .materialize-textarea {
+    font-size: 1em;
+    min-height: 5em;
+    background-color: #f2f2f2;
+    text-align: initial;
+    padding: 10px;
+    box-shadow: inset 0 0 1px 0px black;
+  }
+}
+  
+// **********************************Accessibility Modal ENd*****************************//
 
 // Paginate style
 .pagination li.active {
@@ -262,6 +297,15 @@ div.cover {
     a {
       font-size: 0.6em;
       color: var(--purp);
+
+      &.modal-trigger {
+        font-size: 0.9em;
+        transition: all 0.5s ease;
+
+        &:hover {
+          font-size: 1.1em;
+        }
+      }
 
       &:hover {
         opacity: 0.8;

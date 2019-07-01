@@ -90,14 +90,19 @@ app.post('/customer/edit', customerController.editCustomerById);
 app.get('/audits', auditController.getAudits);
 app.get('/audits/:id', auditController.getAuditById);
 app.get('/audits/dev/:id', auditController.getDevAuditById);
+app.post('/audits/edit', auditController.editAudit);
 app.get('/audits/delete/:id', auditController.deleteAuditById);
-// app.get('/audits/customer/:id', auditController.getAuditByCustomerId);
+
+// Reports routes
+app.get('/reports', auditController.getReports);
+app.get('/report/', auditController.getReport);
 
 // Admin
 app.get('/admin/register', adminController.renderRegister);
 app.get('/admin/login', adminController.renderLogin);
 app.post('/admin/register', adminController.register);
 app.post('/admin/login', passport.authenticate('local', { failureRedirect: '/admin/login' }), adminController.login);
+
 // Endpoint to logout
 app.get('/admin/logout', adminController.logout);
 

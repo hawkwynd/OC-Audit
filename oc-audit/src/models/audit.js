@@ -5,6 +5,13 @@ const mongoose = require('mongoose');
     url: {
         type: String
     },
+    isCompliant: {
+      type: Boolean,
+      default: false
+    },
+    comment: {
+      type: String
+    },
     diffData: {
         type: String
     },

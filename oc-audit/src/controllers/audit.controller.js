@@ -1,6 +1,7 @@
 /* jshint esversion: 6*/
 const mongoose =  require('mongoose');
 const Audit =  mongoose.model('Audit');
+const Customer =  mongoose.model('Customer');
 const paginate = require('express-paginate');
 
 // const paginate = (page, data, offset) => {
@@ -95,6 +96,36 @@ module.exports = {
                     visitor: req.session.visitor
                 });
             });
+        } else {
+            res.redirect('/');
+        }
+    },
+
+    editAudit: (req, res) => {
+        const {id, isCompliant, comment } = req.body;
+
+                Audit.update({_id: id}, { $set: {isCompliant: !!isCompliant, comment: comment} })
+                .then((affected, error , result) => {
+                        if(error) console.log(error);
+                        res.redirect(`/audits/${id}`);
+                });
+    },
+
+    getReports: async (req, res) => {
+        if(req.session.user) {
+         const cuList = await Customer.find().then(customers => customers);
+            res.render('reports', {cuList: cuList, user: req.session.user,});
+        } else {
+            res.redirect('/');
+        }
+    },
+
+    getReport: async (req, res) => {
+        if(req.session.user) {
+            const { cu, date } = req.query;
+            const cuList = await Customer.find({}).then(customers => customers);
+            const reports = await Audit.find({cu: mongoose.Types.ObjectId(cu), compareDate: date}).then(reports=> reports);
+            res.render('reports', {reports: reports, date:date, cuList:cuList, cuName:!!reports.length ? reports[0].cuName: "No changes", user: req.session.user});
         } else {
             res.redirect('/');
         }

@@ -8,6 +8,7 @@
 
     <!-- Compiled and minified Styledsheet -->
 <link href="/css/main.css" type="text/css" rel="stylesheet" media="screen,projection" >
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0">
@@ -32,6 +33,7 @@
           {{#if user}}
             <li><a class="dropdown-trigger display_name" href="#!" data-target="dropdown1">{{user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
           <li><a href="/audits">Audits</a></li>
+          <li><a href="/reports">Reports</a></li>
           {{/if}}
           {{#if visitor}}
             {{#unless ../user}}
@@ -58,7 +60,7 @@
 </body>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="/js/init.js"></script>
   <script src="/js/main.js"></script>

@@ -2,7 +2,39 @@
     {{#if audit}}
     <link href="https://{{audit.rootUrl}}/site.css" rel="stylesheet"> 
     <link href="/css/main.css" type="text/css" rel="stylesheet" media="screen,projection"> 
-    <h2 class="center name">{{audit.cuName}}(<a href="{{audit.url}}" target="_blank"> Go to Site</a> | <a href="/audits/dev/{{audit.id}}">View Code</a>)</h2>
+    <h2 class="center name">
+      {{audit.cuName}}
+      (<a href="{{audit.url}}" target="_blank"> Go to Site</a> | <a href="/audits/dev/{{audit.id}}">View Code</a>)
+      <a class="waves-effect waves-light modal-trigger" href="#accessibilityModal"><i class="fas fa-universal-access"></i></a>
+    </h2>
+        <!-- Modal Structure -->
+        <div id="accessibilityModal" class="modal bottom-sheet">
+          <div class="modal-content">
+            <h4>Accessibility Portal</h4>
+            <form method="post" action="/audits/edit" >
+              <div class="container">
+                <div class="form-group">
+                    <input type="hidden" class="form-control" name="id" id="id" aria-describedby="ID"  value="{{audit.id}}">
+                </div>
+                <div class="form-group">
+                    <label>
+                      <input type="checkbox" name="isCompliant" {{#if audit.isCompliant}} checked {{/if}} />
+                      <span>Is Accessibility</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" rows="10" cols="30" name="comment" >{{audit.comment}}</textarea>
+                      </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary oc-btn">Submit</button>
+                <a href="#!" alt="Close" class="modal-close btn btn-primary oc-btn back">Close</a>
+                </div>
+            </form>
+          </div>
+        </div>
     <br>
     <div class="row">
     <div class="col s12" style="flex:1; flex-basis:initial;">
