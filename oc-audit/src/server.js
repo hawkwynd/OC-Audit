@@ -15,18 +15,18 @@ const moment = require('moment');
 const paginate = require('express-paginate');
 
 const config = require('./config/index');
-// console.log(config);
 
 // Load models
 require('./models/customer');
 require('./models/audit');
 require('./models/user');
 
-// initialLoad helper
+// import controllers
 const customerController = require('./controllers/customer.controller');
 const adminController = require('./controllers/admin.controller');
 const auditController = require('./controllers/audit.controller');
 
+// Create an instance of express app
 const app = express();
 
 //Passport config
@@ -41,9 +41,10 @@ mongoose.connect(mongodbUri, {useNewUrlParser: true})
     console.log(" Mongoose connection error", err);
   });
 
-
+// Set Public folder
 app.use(express.static('public'));
-// Setting View Engine
+
+// Setting View Engine (Handlebars)
 app.engine('handlebars', exphbs({
 	defaultLayout: 'main',
   helpers: {
@@ -59,6 +60,7 @@ app.engine('handlebars', exphbs({
     }
 }));
 
+// Express middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
@@ -97,18 +99,20 @@ app.get('/audits/delete/:id', auditController.deleteAuditById);
 app.get('/reports', auditController.getReports);
 app.get('/report/', auditController.getReport);
 
-// Admin
+// Admin Routes
 app.get('/admin/register', adminController.renderRegister);
 app.get('/admin/login', adminController.renderLogin);
 app.post('/admin/register', adminController.register);
 app.post('/admin/login', passport.authenticate('local', { failureRedirect: '/admin/login' }), adminController.login);
 
-// Endpoint to logout
+// Logout Route
 app.get('/admin/logout', adminController.logout);
 
-// Wrong urls Redirect
+// Sitemap.xml and Robots .txt routes for SEO
 app.get('/sitemap.xml', (req, res) => res.send('sitemap.xml'));
 app.get('/robots.txt', (req, res) => res.send('robots.txt'));
+
+// Wrong urls Redirect
 app.get('*', (req, res) => res.redirect('/'));
 
 server = http.createServer(app);
