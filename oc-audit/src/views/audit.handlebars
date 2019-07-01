@@ -6,7 +6,9 @@
     <h2 class="center name">
       {{audit.cuName}}
       (<a href="{{audit.url}}" target="_blank"> Go to Site</a> | <a href="/audits/dev/{{audit.id}}">View Code</a>)
+      {{#if user}}
       <a class="waves-effect waves-light modal-trigger" href="#accessibilityModal"><i class="fas fa-universal-access"></i></a>
+      {{/if}}
     </h2>
         <!-- Modal Structure -->
         <div id="accessibilityModal" class="modal bottom-sheet">
