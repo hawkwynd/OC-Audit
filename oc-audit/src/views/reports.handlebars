@@ -36,16 +36,14 @@
         <tbody>
         {{# each reports }}
             <tr>
-                <td>{{this.url}}</td>
+                <td>{{{relativeUrl this.url}}}</td>
                 <td>{{this.compareDate}}</td>
                 <td>{{#if this.isCompliant}} YES {{else}} NO {{/if}} </td>
                 <td>{{this.comment}}</td>
             </tr>
         {{/each}}
         </tbody>
-    <table>
-
-    </table>
+        </table>
 </div>
 
 <script src="/js/jspdf.min.js"></script>
@@ -57,10 +55,17 @@
             e.preventDefault();
         var doc = new jsPDF();
         // You can use html:
-        doc.autoTable({html: '#report', styles: {halign: 'center', minCellWidth: 40}, Padding: {top: 0, right: 0, bottom: 0, left: 0}, margin: {top: 0, right: 0, bottom: 0, left: 0}});
+        doc.autoTable({
+            html: '#report', 
+            styles: { halign: 'center', cellPadding: 5, cellWidth: 50, rowPageBreak: 'auto' }, 
+            Padding: {top: 20, right: 0, bottom: 20, left: 0}, 
+            margin: {top: 0, right: 0, bottom: 0, left: 0},
+            columnStyles: {text: {cellWidth: 'wrap'}},
+            useCss: true
+        });
         
         
-        doc.save('table.pdf');
+        doc.save('AccessibilityReport.pdf');
         });
     });
 </script>

@@ -56,6 +56,10 @@ app.engine('handlebars', exphbs({
         },
         active: function (current, number) {
           return current == number ? 'active': '';
+        },
+        relativeUrl: function (url) {
+          var index = url.lastIndexOf('/');
+          return  index !== 7 ? url.substring(index) : '/';
         }
     }
 }));
