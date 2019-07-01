@@ -1,13 +1,10 @@
 /*jshint esversion: 6 */
-
 const mongoose = require('mongoose');
 const axios = require('axios');
-const parseXml = require('xml2js').parseString;
 const keys = require('./config');
 const mailer = require('./mailService');
 const isEqual = require('lodash').isEqual;
 const moment = require('moment');
-
 // Library for difference between 2 html
 const htmldiff = require('./htmlDiff2');
 
@@ -16,6 +13,8 @@ require('./customer.model');
 require('./audit.model');
 const Customer = require('mongoose').model('Customer');
 const Audit = require('mongoose').model('Audit');
+
+// function to return asset Urls
 const getAssets = (data) => {
 	if(data.collection.typeName === "index") {
 		return data.collection.collections.map(col => col.mainImage ? col.mainImage.assetUrl: null);
@@ -24,13 +23,16 @@ const getAssets = (data) => {
 			return data.collection.mainImage ? [data.collection.mainImage.assetUrl] : null;
 		}
 }
-// Audit Logic
+
+// Audit Run function
 const run = async (customers) => {
 	let changedUrls = [];
 	for(let customer of customers) {
-				console.log(`${customer.url} --------------------- Audit`);
+				console.log(`Checking ${customer.url}...`);
 
+				// check if customer model has a sitemap
 				if(customer.sitemap) {
+					// Loop through sitemap and save changedUrls
 					for(currentSitemap of customer.sitemap) {
 						
 						const loadedData = await axios.get(`${currentSitemap.loc}?format=json`)
@@ -61,8 +63,7 @@ const run = async (customers) => {
 				}
 	}
 
-	// console.log(changedUrls); 
-
+	// For all changed detected, update DB and send email to contact
 	for(let currentUrl of changedUrls) {
 		// Content Return the site content from the API
 		let content = "";
@@ -116,7 +117,8 @@ const run = async (customers) => {
 	}
 }
 
-// Process Runner Method
+
+// Process Runner Method, loops infinitely and runs every 4h (4*60*60*1000 ms)
 const runner = () => {
 	// find all customers and Run Audit
 	console.log('Running Audit *************************************');
