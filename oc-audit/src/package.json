@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.6.0",
-    "axios": "^0.17.1",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.1",
@@ -33,7 +33,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
     "googleapis": "^39.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "mongoose": "^5.4.20",
     "mongoose-bcrypt": "^1.5.0",
