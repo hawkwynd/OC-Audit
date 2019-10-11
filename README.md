@@ -8,6 +8,10 @@ Install MongoDB on Mac:
 - `brew install mongodb-community@4.2`
 - `brew services start mongodb-community@4.2`
 
+To run mongo:
+`mongo` 
+
+
 
 
 # Install dependencies for project
